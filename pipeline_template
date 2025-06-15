@@ -10,7 +10,12 @@ pipeline {
         steps {
           echo "BUILD_NUMBER = ${env.BUILD_NUMBER}"
           echo "printting final output short template if youy want o add funcnality use this "
-          sh echo current Build_num is = $BUILD_NUMBER'
+          sh 'echo current Build_num is = $BUILD_NUMBER'
+        }
+      }
+      stage('Testiing build failure job') {
+        steps {
+          sh 'exit 1'
         }
       }
     }
@@ -22,7 +27,7 @@ pipeline {
         echo "job passeed please run post-validation scripts"
       }  
       failure { 
-        echo "Hob has failed failed Id is {env.BUILD_ID} please gop tto console and debug with logs"
+        echo "Hob has failed failed Id is ${env.BUILD_ID} please gop tto console and debug with logs"
       }
     }
 
