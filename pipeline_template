@@ -14,4 +14,17 @@ pipeline {
         }
       }
     }
+    post {
+      always { 
+        echo " curreent git commit id is ${env.GIT_COMMIT} and pervious was ${env.GIT_PREVIOUS_COMMIT}"
+      }
+      success {
+        echo "job passeed please run post-validation scripts"
+      }  
+      failure { 
+        echo "Hob has failed failed Id is {env.BUILD_ID} please gop tto console and debug with logs"
+      }
+    }
+
+     
 }
