@@ -12,5 +12,5 @@ pipeline {
           echo "printting final output short template if youy want o add funcnality use this "
           sh 'echo current Build_num is : $BUILD_NUMBER'
         }
-     }
+      }
 }
