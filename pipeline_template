@@ -13,4 +13,5 @@ pipeline {
           sh 'echo current Build_num is = $BUILD_NUMBER'
         }
       }
+    }
 }
