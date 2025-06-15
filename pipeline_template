@@ -1,21 +1,16 @@
-pipeline {
+\pipeline {
   agent any
     stages {
       stage('getting link form git scm') {
         steps {
            echo "we will running pipeline from git"
-
         }
-
       } 
       stage('printing it') {
-
         steps {
           echo "BUILD_NUMBER = ${env.BUILD_NUMBER}"
           echo "printting final output short template if youy want o add funcnality use this "
           sh 'echo current Build_num is : $BUILD_NUMBER'
-
         }
-
      }
 }
