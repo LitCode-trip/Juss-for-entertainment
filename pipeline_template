@@ -10,7 +10,7 @@ pipeline {
         steps {
           echo "BUILD_NUMBER = ${env.BUILD_NUMBER}"
           echo "printting final output short template if youy want o add funcnality use this "
-          sh 'echo current Build_num is : $BUILD_NUMBER'
+          sh 'echo current Build_num is = $BUILD_NUMBER'
         }
       }
 }
