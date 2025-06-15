@@ -1,0 +1,15 @@
+version: '2'
+services:
+  jenkins:
+    container_name: jankins_8080
+    image: jenkins/jenkins
+    ports: 
+      - "8080:8080"
+      - "50000:50000"
+    networks:
+      - net
+    volumes:
+      - /home/jenkins/jenkins_pipeline:/opt/jenkins_pipeline
+    restart: always
+networks:
+  net:
