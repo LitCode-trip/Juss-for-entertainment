@@ -1,0 +1,37 @@
+# executing script from git using declarative pipeline
+pipeline {
+    agent { label('!master') }
+    stages {
+        stage('cheking out git') {
+            steps {
+                echo "fetching git details and cloning it"
+                git branch: 'main', url: 'https://github.com/LitCode-trip/Juss-for-entertainment.git' #this can be found from pipeline syntax toll bottom of jenkins 
+            }
+        }
+        stage('executing scripts') {
+            steps{
+                echo "giving executable permission"
+                sh 'chmod u+x Chk_os.sh'
+                echo "now running script"
+                sh './Chk_os.sh'
+            }
+        }
+    }    
+    post {
+        always {
+            echo "current build id was $BUILD_ID or ${env.BUILD_ID} and git commit was ${env.GIT_COMMIT}"
+            
+        }
+        failure {
+            echo " $BUILD_ID failed"
+            
+        }
+        success {
+            echo "$BUILD_ID successed"
+        }
+        
+        
+    }
+}
+
+# executing script from git using declarative pipeline
