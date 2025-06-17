@@ -1,0 +1,33 @@
+pipeline {
+    agent none
+    stages {
+        stage('fetching git and building') {
+            matrix {
+                agent {
+                    label "${PLATFORM}"
+                }
+                axes {
+                    axis {
+                        name 'PLATFORM'
+                        values 'lukhajenkins', 'deb'
+                    }
+                }
+                stages {
+                    stage('testing Matrix') {
+                        steps {
+                        echo "testing for node ${PLATFORM}"
+                        echo "fetching git"
+                        echo "fetching git on ${PLATFORM} "
+                        git branch: 'main', url: 'https://github.com/LitCode-trip/Juss-for-entertainment.git'
+                        echo "making script executable"
+                        echo " current $WORKSPACE"
+                        sh 'chmod u+x Chk_os.sh'
+                        echo "executing script"
+                        sh './Chk_os.sh'
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
