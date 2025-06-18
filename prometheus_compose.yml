@@ -1,0 +1,14 @@
+version: '2'
+services:
+  prometheus:
+    container_name: prome
+    image: prom/prometheus
+    ports:
+      - "9090:9090"
+    networks:
+      - net
+    volumes:
+      - /home/prometheus:/opt/prometheus
+    restart: always
+networks:
+  net:
