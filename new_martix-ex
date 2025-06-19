@@ -20,7 +20,7 @@ pipeline {
                     steps {
                         sh '''
                             echo "fetching script from git repo for $xt"
-                            git branch: 'main', url: 'https://github.com/LitCode-trip/Juss-for-entertainment.git'
+                            git branch: 'stagging', url: 'https://github.com/LitCode-trip/Juss-for-entertainment.git'
                             chmod u+x Chk_os.sh
                             echo "executing sripts"
                             ./Chk_os.sh
