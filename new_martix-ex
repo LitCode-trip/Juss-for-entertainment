@@ -1,0 +1,35 @@
+pipeline {
+    agent none
+    stages {
+        stage('fetching git repo') {
+            martrix {
+                 agent {
+                      label "${xt}"
+
+                 }
+                 axes {
+                     axis {
+  
+                         name 'xt'
+                         values 'Lubuntu' , 'debiya'
+                     }
+                 }
+            }
+            stages {
+                stage('feting and implimentingbscript') {       
+                    steps {
+                        sh '''
+                            echo "fetching script from git repo for $xt"
+                            git branch: 'main', url: 'https://github.com/LitCode-trip/Juss-for-entertainment.git'
+                            chmod u+x Chk_os.sh
+                            echo "executing sripts"
+                            ./Chk_os.sh
+                      
+                            '''
+                    }
+                }      
+            }
+
+        }
+    }
+}
