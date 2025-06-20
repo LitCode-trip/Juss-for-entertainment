@@ -1,0 +1,31 @@
+pipeline {
+  agent none
+  stages {
+      stage('fetching git repo') {
+          matrix {
+             node {
+                lable "${xyz}"
+             }
+              axes {
+                  axis {
+                      name 'lable'
+                      values 'ldeb', 'lubuntu' 
+                  }                  
+              }  
+              stages {
+                stage('fetching git') {
+                   steps {
+                     echo "fetching git link"
+                     git branch: 'stagging', url: 'https://github.com/LitCode-trip/Juss-for-entertainment.git'  
+                   }
+                }
+                stage('executing script form git') {
+                  steps {
+                     echo "exec scrpt"
+                     chmod u+x Chk_0s.sh
+                  }
+                }
+             }   
+      }
+  }
+}
