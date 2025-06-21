@@ -1,0 +1,22 @@
+100 - avg by (instance) (rate(node_cpu_seconds_total{mode="idel"}[20m])) *100
+
+Or below one both works well
+sum by (instance) (rate(node_cpu_seconds_total{mode!="idle", mode!="iowait", mode!="steal", mode!="softirq", mode!="irq", mode!="guest", mode!="guest_nice", instance=~"instance_name_1|instance_name_2"}[5m]))/
+sum by (instance) (rate(node_cpu_seconds_total{instance=~"instance_name_1|instance_name_2"}[5m])) * 100
+ex
+sum by (instance) (rate(node_cpu_seconds_total{mode!="idle", mode!="iowait", mode!="steal", mode!="softirq", mode!="irq", mode!="guest", mode!="guest_nice", instance=~"13.201.82.11:9100|34.93.72.12:9100"}[25m])) 
+/
+sum by (instance) (rate(node_cpu_seconds_total{instance=~"13.201.82.11:9100|34.93.72.12:9100"}[25m])) * 100
+
+
+
+Memory
+
+Wrong one
+avg by (instance) (avg_over_time((node_memory_MemTotal_bytes{instance="13.201.82.11:9100|34.93.72.12:9100"}[2m] - node_memory_MemAvailable_bytes{instance="13.201.82.11:9100|34.93.72.12:9100"}[2m])/ node_memory_MemTotal_bytes * 100
+{instance="13.201.82.11:9100|34.93.72.12:9100"}[2m])) * 100
+
+Right one below
+
+avg by (instance) ((avg_over_time(node_memory_MemTotal_bytes{instance=~"13.201.82.11:9100|34.93.72.12:9100"}[2m]) - avg_over_time(node_memory_MemAvailable_bytes{instance=~"13.201.82.11:9100|34.93.72.12:9100"}[2m])) / 
+avg_over_time(node_memory_MemTotal_bytes{instance=~"13.201.82.11:9100|34.93.72.12:9100"}[2m]))* 100
