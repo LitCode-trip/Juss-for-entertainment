@@ -1,0 +1,89 @@
+I went and specifically commited for specific commid id from all 
+
+SO i was in condiiton wwhere i pushed some specific req data to stagging instead of main so latrer i want that data in main branch too but as ib craetd and drafted dat in stagging it was in stagging brach so i went in staging branch did
+git log --oneline
+it game me all log of commit in oine line 
+Below is screen record form same session 
+
+Step1 find git commit id
+
+Bhongad ponga@DESKTOP-OGL2EKC MINGW64 ~/GITOPS (stagging)
+$ git log --oneline
+ca02c31 (HEAD -> stagging, supp/stagging) prometheus&dashboards
+2d7ca83 martix prac
+d49d35c changing env to stg
+bcd55ca Prac matrix
+fc7a360 matrix in testng phase
+eff576b starting staggin
+b3ecd5f Create Creating_user_jenkins.sh
+f8e9ef9 16_06_2025 running script and declaring git repo from pipeline
+3bfecca Checking Os module
+773256e adding failure logix to check post
+f6e53b5 checking fail feature
+9721d4f adding lines to expose more feature
+b1c3fce fixing final fix
+0449ed3 scm pipeline template-4 adding bracesat the removing :
+9073c69 scm pipeline template-4 adding bracesat the ri9ght places
+7e70d67 scm pipeline template-4 removintg back lash
+0ba5bac scm pipeline template-3
+24035c1 scm pipeline template-2
+3bab37c scm pipeline template
+7129424 composing_docker
+9473755 sdfsd
+
+From here i got ca02c31 commit id if my commit which i want to push ot main
+ then i switched to mainn below is code
+
+
+step2: switch to main
+Bhongad ponga@DESKTOP-OGL2EKC MINGW64 ~/GITOPS (stagging)
+$ git switch main
+Switched to branch 'main'
+Your branch is up to date with 'supp/main'.
+
+Bhongad ponga@DESKTOP-OGL2EKC MINGW64 ~/GITOPS (main)
+$ git che
+checkout      cherry        cherry-pick
+
+Bhongad ponga@DESKTOP-OGL2EKC MINGW64 ~/GITOPS (main)
+$ git che
+checkout      cherry        cherry-pick
+
+Bhongad ponga@DESKTOP-OGL2EKC MINGW64 ~/GITOPS (main)
+$ git che
+checkout      cherry        cherry-pick
+
+
+step3:
+then i cherry picked specifi commit to git 
+
+
+Bhongad ponga@DESKTOP-OGL2EKC MINGW64 ~/GITOPS (main)
+$ git cherry-pick ca02c31
+[main 7e7c766] prometheus&dashboards
+ Date: Sat Jun 21 23:44:41 2025 +0530
+ 3 files changed, 22 insertions(+)
+ create mode 100644 Prom_graf/gRAFANA.png
+ create mode 100644 Prom_graf/gRAFANA_NODE_EXPORTEER.png
+ create mode 100644 Prom_graf/promql
+
+Bhongad ponga@DESKTOP-OGL2EKC MINGW64 ~/GITOPS (main)
+$ git status
+On branch main
+Your branch is ahead of 'supp/main' by 1 commit.
+  (use "git push" to publish your local commits)
+
+nothing to commit, working tree clean
+
+
+step 4 then i pushed to main 
+
+
+Bhongad ponga@DESKTOP-OGL2EKC MINGW64 ~/GITOPS (main) $ git push \
+Enumerating objects: 7, done. Counting objects: 100% (7/7), done. Delta compression using up to 8 threads Compressing objects: 100% (6/6), done. Writing objects: 100% 
+(6/6), 404.35 KiB | 1.80 MiB/s, done. Total 6 (delta 1), reused 0 (delta 0), pack-reused 0 remote: Resolving deltas: 100% (1/1), completed with 1 local object. To github.com:LitCode-trip/Juss-for-entertainment.git
+below is ss 
+
+   5da2827..7e7c766  main -> main
+
+Bhongad ponga@DESKTOP-OGL2EKC MINGW64 ~/GITOPS
