@@ -20,3 +20,15 @@ Right one below
 
 avg by (instance) ((avg_over_time(node_memory_MemTotal_bytes{instance=~"13.201.82.11:9100|34.93.72.12:9100"}[2m]) - avg_over_time(node_memory_MemAvailable_bytes{instance=~"13.201.82.11:9100|34.93.72.12:9100"}[2m])) / 
 avg_over_time(node_memory_MemTotal_bytes{instance=~"13.201.82.11:9100|34.93.72.12:9100"}[2m]))* 100
+
+
+(((sum by (instance) (node_memory_MemTotal_bytes)) - (sum by (instance) (node_memory_MemAvailable_bytes)))) / (sum by (instance) (node_memory_MemTotal_bytes)) * 100
+
+
+
+
+
+#(((sum by (instance) (node_memory_MemTotal_bytes)) - (sum by (instance) (node_memory_MemAvailable_bytes)))) / (sum by (instance) (node_memory_MemTotal_bytes)) * 100
+
+
+100 - ((node_filesystem_avail_bytes{mountpoint="/",fstype!="rootfs"} * 100) / node_filesystem_size_bytes{mountpoint="/",fstype!="rootfs"})
