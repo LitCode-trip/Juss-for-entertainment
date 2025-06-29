@@ -1,0 +1,74 @@
+settign up createtable
+
+
+CREATE TABLE `asd` AS 
+SELECT * FROM `$first_tablename`
+UNION ALL
+SELECT * FROM `$other_table_you want_to_merge` #(Note the table name should be in tilt ` `  not in '' use -> ` `) 
+
+
+then
+you can sort top 3 salary holder
+
+SELECT salary name FROM asd WHERE salary > 10000
+LIMIT 3
+
+
+or
+
+
+SELECT salary name FROM asd
+ORDER BY salary DESC
+LIMIT 3 
+
+
+
+
+
+
+
+
+
+IF you don't want to create other table but want to fetch from both below is query for same
+
+
+SELECT * FROM
+(
+SELECT * FROM $table_one
+UNION ALL
+SELECT * FROM $table_two
+) 
+ORDER BY salary DESC
+LIMIT 3;
+
+-ex:
+-=---------------------------------------
+       SELECT *  FROM 
+(SELECT * FROM `analytical-camp-362014.newxemp.12` 
+ UNION ALL
+ SELECT * FROM `analytical-camp-362014.newxemp.US_EMP`
+)
+ORDER BY salary DESC
+LIMIT 3;
+
+
+--------------------------------------
+4 
+If you wan to know along with table info
+
+SELECT *, '12(name anything)' AS source_table FROM `$table name` 
+UNION ALL
+SELECT *, 'US(name any thing)' AS source_table FROM `$%2nd table name` 
+ORDER BY salary DESC
+LIMIT 3
+
+-ex
+-----------------------------------------------------
+SELECT * , '12' AS source_table
+FROM `analytical-camp-362014.newxemp.12`
+UNION ALL
+SELECT *, 'US' AS source_table
+FROM `analytical-camp-362014.newxemp.US_EMP`
+ORDER BY salary DESC
+LIMIT 3;
+---------------------------------------------------
