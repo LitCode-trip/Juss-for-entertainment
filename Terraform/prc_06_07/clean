@@ -1,0 +1,54 @@
+locals {
+  is_prod_key = can(var.aws_prd_env[var.selected_environment_key])
+  selected_env_map = local.is_prod_key ? var.aws_prd_env : var.aws_stg_env
+  current_instance_config = local.selected_env_map[var.selected_environment_key]
+  current_env_tag_key = local.is_prod_key ? "prd" : "stg"
+}
+provider "aws" {
+  region = local.current_instance_config.region
+  access_key = "xxxxxx"
+  secret_key = "xxxx"
+}
+data "aws_security_group" "jankins" {
+  name = "jankins"
+}
+resource "aws_instance" "jan" {
+  instance_type = local.current_instance_config.instance_type
+  ami           = local.current_instance_config.ami
+
+
+  vpc_security_group_ids = [data.aws_security_group.jankins.id]
+  tags = merge(
+    var.stg_tags[local.current_env_tag_key], # Selects either 'prd' or 'stg' tags from stg_tags variable
+    {
+    #  Name        = "${local.current_instance_config.name}-server" # Example: "prod-aps-1-server"
+      Name = "${var.selected_environment_key}-instance"
+      Environment = local.current_env_tag_key # Explicitly set the environment tag
+      ManagedBy   = "Terraform"
+    }
+  )
+}
+
+# Output the public IP of the created instance
+output "instance_public_ip" {
+  description = "The public IP address of the created EC2 instance."
+  value       = aws_instance.jan.public_ip
+}
+
+# Output the instance type used
+output "used_instance_type" {
+  description = "The EC2 instance type that was provisioned."
+  value       = aws_instance.jan.instance_type
+}
+
+# Output the AMI ID used
+output "used_ami_id" {
+  description = "The AMI ID that was provisioned."
+  value       = aws_instance.jan.ami
+}
+
+# Output the region where the instance was deployed
+output "deployed_region" {
+  description = "The AWS region where the instance was deployed."
+  value       = local.current_instance_config.region
+}
