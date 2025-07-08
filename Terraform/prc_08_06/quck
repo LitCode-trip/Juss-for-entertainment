@@ -1,0 +1,32 @@
+locals {
+  is_prod = can(var.aws_prd_env[var.sel_env])
+  get_env = local.is_prod ? var.aws_prd_env : var.aws_stg_env
+  set_conf = local.get_env[var.sel_env]
+  get_tags = local.is_prod ? var.prd_tag : var.stg_tag
+  merge_tags = merge(local.get_tags,
+    {
+       "Name" = "${var.sel_env}-instance"
+    }
+  )
+}
+data "aws_security_group" "jankins" {
+  name = "jankins"
+
+}
+provider "aws" {
+  region = local.set_config.region
+
+}
+output "instabce_details" {
+  descritionmm = "instnce detrail"
+  value = {
+    id = aws_instance.jan.id
+    type = aws_instance.jan.instance_type
+    
+
+
+    
+  }
+
+
+}
