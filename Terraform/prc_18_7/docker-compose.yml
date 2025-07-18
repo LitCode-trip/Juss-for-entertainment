@@ -1,0 +1,15 @@
+version: '2'
+services:
+  openjenx:
+    container_name: openjenx
+    image: jenkins/jenkins
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+    networks:
+      - net
+    volumes:
+      - "/home/ubuntu/:/opt/ubuntu"
+    restart: always
+networks:
+  net:
